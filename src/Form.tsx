@@ -5,96 +5,133 @@ import {
   useState,
   ReactElement,
 } from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
+// import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import "./Form.css";
 import type { SVGProps } from "react";
 
-interface FormProps {
-  fields: {
-    field: string;
+// interface FormProps {
+//   fields: {
+//     field: string;
+//     label: string;
+//     classes: string;
+//     type: string;
+//     repeatable: boolean;
+//   }[];
+//   onSubmit: string; //{ onSubmit: () => void };
+// }
+
+// export function Form({ fields, onSubmit }: FormProps) {
+//   const formMethods = useForm();
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//     setValue,
+//   } = formMethods;
+
+//   const fieldsList = fields.map((e) => (
+//     <FormField
+//       field={e.field}
+//       label={e.label}
+//       classes={e.classes}
+//       type={e.type}
+//       repeatable={e.repeatable}
+//     />
+//   ));
+
+//   return (
+//     <FormProvider {...formMethods}>
+//       <form action={onSubmit}>
+//         <EditableVal></EditableVal>
+//       </form>
+//     </FormProvider>
+//   );
+// }
+
+export function Form({
+  name,
+  structure,
+}: {
+  name: string;
+  structure: {
     label: string;
-    classes: string;
-    type: string;
-    repeatable: boolean;
+    value?: string;
+    classes?: string;
+    type?: string;
+    repeatable?: boolean;
   }[];
-  onSubmit: string; //{ onSubmit: () => void };
-}
-
-export function Form({ fields, onSubmit }: FormProps) {
-  const formMethods = useForm();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = formMethods;
-
-  const fieldsList = fields.map((e) => (
-    <FormField
-      field={e.field}
-      label={e.label}
-      classes={e.classes}
-      type={e.type}
-      repeatable={e.repeatable}
-    />
-  ));
-
+}) {
+  const renderedForm = structure.map((obj) => {
+    if (obj.type === "header") return <h2>{obj.label}</h2>;
+    else if (obj.repeatable === true)
+      return (
+        <RepeatableField
+          value={obj.value}
+          label={obj.label}
+          classes={obj.classes}
+          type={obj.type}
+        />
+      );
+    else
+      return (
+        <FormField
+          value={obj.value}
+          label={obj.label}
+          classes={obj.classes}
+          type={obj.type}
+        />
+      );
+  });
   return (
-    <FormProvider {...formMethods}>
-      <form action={onSubmit}>
-        <EditableVal></EditableVal>
-      </form>
-    </FormProvider>
+    <form action="" name={name} id={name}>
+      {renderedForm}
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
+// Normal single form input element
 function FormField({
-  field = "", // default field value
+  value = "", // default field value
   label = "My Field", // text label for field
   classes = "", // classes to apply to input element
   type = "text", //input type
-  repeatable = false,
 }) {
-  const [myField, setMyField] = useState(field);
+  const [myField, setMyField] = useState(value);
 
-  return type == "label" ? (
-    <h2>{label}</h2>
-  ) : (
-    <label>
+  return (
+    <label className={classes}>
       {label}:
       <input
         type={type}
-        className={classes}
         value={myField}
         onChange={(e) => setMyField(e.target.value)}
       />
-      {repeatable && <button type="button" onClick={duplicateField}></button>}
     </label>
   );
 }
 
 function RepeatableField({
-  field = "", // default field value
+  value = "", // default field value
   label = "My Field", // text label for field
   classes = "", // classes to apply to input element
   type = "text", //input type
 }) {
-  const [fieldEntries, setFieldEntries] = useState([field]);
+  const [fieldEntries, setFieldEntries] = useState([value]);
   const fields = fieldEntries.map((_, index: number) => (
     <div className="repeat-field">
       <input
         type={type}
-        className={classes}
         value={fieldEntries[index]}
         onChange={(e) => {
           fieldEntries[index] = e.target.value;
           setFieldEntries(fieldEntries);
         }}
       />
+      // Deletes this repeated field when clicked
       <button
         type="button"
         className="remove"
-        // Removes this repeated field from the list
         onClick={() => {
           fieldEntries.splice(index, 1);
           setFieldEntries(fieldEntries);
@@ -106,36 +143,36 @@ function RepeatableField({
   ));
 
   return (
-    <div>
-      <h3 className={classes}>{label}</h3>
+    <fieldset className={classes}>
+      <legend>{label}</legend>
       <button
         type="button"
         className="add"
         // Adds new field with default value to end of list
-        onClick={() => setFieldEntries(fieldEntries.concat([field]))}
+        onClick={() => setFieldEntries(fieldEntries.concat([value]))}
       >
         <RiAddCircleFill />
       </button>
       {fields}
-    </div>
+    </fieldset>
   );
 }
 
-// https://stackoverflow.com/questions/65933118/react-onchange-event-for-contenteditable-attribute
-function EditableVal({ registerAs = "default" }) {
-  const { register, setValue } = useFormContext();
-  //   const [val, setVal] = useState(defaultVal);
-  const onInput = (e: FormEvent<HTMLInputElement>) => {
-    setValue(registerAs, e.currentTarget.innerText);
-  };
+// // https://stackoverflow.com/questions/65933118/react-onchange-event-for-contenteditable-attribute
+// function EditableVal({ registerAs = "default" }) {
+//   const { register, setValue } = useFormContext();
+//   //   const [val, setVal] = useState(defaultVal);
+//   const onInput = (e: FormEvent<HTMLInputElement>) => {
+//     setValue(registerAs, e.currentTarget.innerText);
+//   };
 
-  return (
-    <div>
-      <input type="hidden" {...register(registerAs)} />
-      <p contentEditable="true" onInput={onInput}></p>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <input type="hidden" {...register(registerAs)} />
+//       <p contentEditable="true" onInput={onInput}></p>
+//     </div>
+//   );
+// }
 
 export function RiAddCircleFill(props: SVGProps<SVGSVGElement>) {
   return (

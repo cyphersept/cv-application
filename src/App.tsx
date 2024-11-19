@@ -21,37 +21,9 @@ function App() {
   //   { label: "Education", classes: "paraBox" },
   // ];
 
-  const basicFields = [
-    { type: "label", label: "Basic info:" },
-    { label: "Name", classes: "required" },
-    { label: "Title", classes: "required" },
-    { label: "Phone Number", classes: "required" },
-    { label: "Email", type: "email", classes: "required" },
-    { label: "Location", classes: "required" },
-    { type: "label", label: "Your socials:" },
-    { label: "Linkedin", type: "url" },
-    { label: "Github", type: "url" },
-    { label: "Portfolio", type: "url" },
-  ];
-
-  const education = [
-    { label: "Place" },
-    { label: "Start date" },
-    { label: "End date" },
-  ];
-
-  const work = [
-    { label: "Company" },
-    { label: "Title" },
-    { label: "Start date" },
-    { label: "End date" },
-    { label: "Start date" },
-    { label: "About", type: "long", classes: "repeating" },
-  ];
-
   return (
     <>
-      <Form></Form>
+      <Resume />
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
