@@ -50,9 +50,11 @@ import type { SVGProps } from "react";
 
 export function Form({
   name,
+  formAction,
   structure,
 }: {
   name: string;
+  formAction: (event: React.FormEvent<HTMLFormElement>) => void;
   structure: {
     label: string;
     value?: string;
@@ -83,7 +85,7 @@ export function Form({
       );
   });
   return (
-    <form action="" name={name} id={name}>
+    <form onSubmit={formAction} name={name} id={name}>
       {renderedForm}
       <button type="submit">Submit</button>
     </form>

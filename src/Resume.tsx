@@ -4,6 +4,13 @@ import "./Section";
 import { useState } from "react";
 import { Form } from "./Form";
 
+interface InfoItem {
+  label: string;
+  type?: string;
+  value?: string;
+  classes?: string;
+}
+
 const basicInfo = {
   f1: { type: "header", label: "Basic info:" },
   name: { label: "Name", classes: "required", value: "" },
@@ -40,14 +47,30 @@ export function Resume() {
 function Basics() {
   const [contents, setContents] = useState(basicInfo);
   const [showForm, setShowForm] = useState(false);
-  const submitContents = () => {};
+  const formStructure = Object.values(basicInfo);
+  const submitContents = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(event);
+    const formData = new FormData(event.currentTarget);
+    const newContents = { ...contents };
+    console.log(formData);
+    for (const [key, val] of Object.entries(newContents)) {
+      if ("value" in val) {
+        const formVal = formData.get(key);
+        (newContents[key as keyof typeof newContents] as InfoItem).value =
+          typeof formVal == "string" ? formVal : "";
+      }
+    }
+    console.log(newContents);
+    setContents(newContents);
+  };
 
   if (showForm)
     return (
       <Form
         name="basic"
-        structure={Object.values(basicInfo)}
-        onSubmit={submitContents}
+        structure={formStructure}
+        formAction={submitContents}
       />
     );
   else
