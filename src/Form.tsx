@@ -57,6 +57,7 @@ export function Form({
   formAction: (event: React.FormEvent<HTMLFormElement>) => void;
   structure: {
     label: string;
+    id?: string;
     value?: string;
     classes?: string;
     type?: string;
@@ -81,6 +82,7 @@ export function Form({
           label={obj.label}
           classes={obj.classes}
           type={obj.type}
+          id={obj.id}
         />
       );
   });
@@ -98,6 +100,7 @@ function FormField({
   label = "My Field", // text label for field
   classes = "", // classes to apply to input element
   type = "text", //input type
+  id = "",
 }) {
   const [myField, setMyField] = useState(value);
 
@@ -108,6 +111,7 @@ function FormField({
         type={type}
         value={myField}
         onChange={(e) => setMyField(e.target.value)}
+        name={id}
       />
     </label>
   );
