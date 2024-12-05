@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Form.css";
 import { RiAddCircleFill, RiIndeterminateCircleFill } from "./Icons";
-import type { InfoItem, InfoObject } from "./Interfaces";
+import type { InfoItem } from "./Interfaces";
 
 export function Form(props: {
   name: string;
@@ -18,6 +18,7 @@ export function Form(props: {
           label={obj.label}
           classes={obj.classes}
           type={obj.type}
+          id={obj.id}
         />
       );
     else
@@ -47,17 +48,10 @@ function FormField({
   type = "text", //input type
   id = "",
 }) {
-  const [myField, setMyField] = useState(value);
-
   return (
     <label className={classes}>
       {label}:
-      <input
-        type={type}
-        value={myField}
-        onChange={(e) => setMyField(e.target.value)}
-        name={id}
-      />
+      <input type={type} defaultValue={value} name={id} />
     </label>
   );
 }
@@ -68,26 +62,20 @@ function RepeatableField({
   label = "My Field", // text label for field
   classes = "", // classes to apply to input element
   type = "text", //input type
+  id = "",
 }) {
   const [fieldEntries, setFieldEntries] = useState(values);
   const fields = fieldEntries.map((_, index: number) => (
     <li className="repeat-field" key={index}>
       <label title="Add work details" aria-label="Work detail">
-        <input
-          type={type}
-          value={fieldEntries[index]}
-          onChange={(e) => {
-            fieldEntries[index] = e.target.value;
-            setFieldEntries(fieldEntries);
-          }}
-        />
+        <input type={type} defaultValue={fieldEntries[index]} name={id} />
       </label>
       <button
         type="button"
         className="remove"
         onClick={() => {
-          fieldEntries.splice(index, 1);
-          setFieldEntries(fieldEntries);
+          const newEntries = fieldEntries;
+          setFieldEntries(newEntries.splice(index, 1));
         }}
       >
         <RiIndeterminateCircleFill />
