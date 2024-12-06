@@ -1,14 +1,13 @@
 import type { InfoObject } from "./Interfaces";
+import { EditButton } from "./CustomButtons";
 
 export function BasicDisplay(props: {
   content: InfoObject;
   clickToEdit: () => void;
 }) {
   return (
-    <section>
-      <button className="edit" onClick={props.clickToEdit}>
-        Edit
-      </button>
+    <>
+      <EditButton clickFunc={props.clickToEdit} />
       <h1>{props.content.name.value}</h1>
       <h2>{props.content.title.value}</h2>
       <div className="contact">
@@ -21,7 +20,7 @@ export function BasicDisplay(props: {
         <div className="github">{props.content.github.value}</div>
         <div className="portfolio">{props.content.portfolio.value}</div>
       </div>
-    </section>
+    </>
   );
 }
 
@@ -31,9 +30,7 @@ export function EduDisplay(props: {
 }) {
   return (
     <li>
-      <button className="edit" onClick={props.clickToEdit}>
-        Edit
-      </button>
+      <EditButton clickFunc={props.clickToEdit} />
       <div className="school">{props.content.school.value}</div>
       <div className="degree">{props.content.degree.value}</div>
       <div className="duration">
@@ -52,9 +49,7 @@ export function WorkDisplay(props: {
   const aboutList = about ? about.map((item) => <li>{item}</li>) : <></>;
   return (
     <li>
-      <button className="edit" onClick={props.clickToEdit}>
-        Edit
-      </button>
+      <EditButton clickFunc={props.clickToEdit} />
       <div className="company">{props.content.company.value}</div>
       <div className="title">{props.content.title.value}</div>
       <div className="duration">
@@ -63,5 +58,35 @@ export function WorkDisplay(props: {
       </div>
       <ul className="about">{aboutList}</ul>
     </li>
+  );
+}
+
+export function AchieveDisplay(props: {
+  content: InfoObject;
+  clickToEdit: () => void;
+}) {
+  return (
+    <li>
+      <EditButton clickFunc={props.clickToEdit} />
+      <div className="title">{props.content.title.value}</div>
+      <div className="date">{props.content.date.value}</div>
+      <div className="description">{props.content.description.value}</div>
+    </li>
+  );
+}
+
+export function SkillDisplay(props: {
+  content: InfoObject;
+  clickToEdit: () => void;
+}) {
+  const skillsList = props.content.skills.values
+    ? props.content.skills.values.map((el: string, i) => <li key={i}>{el}</li>)
+    : [];
+  return (
+    <>
+      <EditButton clickFunc={props.clickToEdit} />
+      <h2>Skills</h2>
+      <ul>{skillsList}</ul>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Form.css";
-import { RiAddCircleFill, RiIndeterminateCircleFill } from "./Icons";
+import { AddButton, RemoveButton } from "./CustomButtons";
 import type { InfoItem } from "./Interfaces";
 
 export function Form(props: {
@@ -10,7 +10,7 @@ export function Form(props: {
 }) {
   const renderedForm = props.structure.map((obj) => {
     if (obj.type === "header") return <h2>{obj.label}</h2>;
-    else if (obj.classes?.includes("repeating"))
+    else if (Object.prototype.hasOwnProperty.call(obj, "values"))
       return (
         <RepeatableField
           values={obj.values}
@@ -70,30 +70,21 @@ function RepeatableField({
       <label title="Add work details" aria-label="Work detail">
         <input type={type} defaultValue={fieldEntries[index]} name={id} />
       </label>
-      <button
-        type="button"
-        className="remove"
-        onClick={() => {
+      <RemoveButton
+        clickFunc={() => {
           const newEntries = fieldEntries;
           setFieldEntries(newEntries.splice(index, 1));
         }}
-      >
-        <RiIndeterminateCircleFill />
-      </button>
+      />
     </li>
   ));
 
   return (
     <fieldset className={classes}>
       <legend>{label}</legend>
-      <button
-        type="button"
-        className="add"
-        // Adds new field with default value to end of list
-        onClick={() => setFieldEntries(fieldEntries.concat([defaultVal]))}
-      >
-        <RiAddCircleFill />
-      </button>
+      <AddButton
+        clickFunc={() => setFieldEntries(fieldEntries.concat([defaultVal]))}
+      />
       {fields}
     </fieldset>
   );
