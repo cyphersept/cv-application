@@ -37,32 +37,32 @@ export function Resume() {
   const addAch = () => setAchieveState(achieveState.concat([Create.achieve()]));
 
   return (
-    <>
+    <div className="resume">
       <section className="basic">
         <InfoSection contentInfo={Monkey.basic} display={BasicDisplay} />
       </section>
 
       <section className="education">
         <h2>Education</h2>
-        <AddButton clickFunc={addEdu} />
         <ul>{eduItems}</ul>
+        <AddButton clickFunc={addEdu} />
       </section>
 
       <section className="work">
         <h2>Work History</h2>
-        <AddButton clickFunc={addWork} />
         <ul>{workItems}</ul>
+        <AddButton clickFunc={addWork} />
       </section>
 
       <section className="achievements">
         <h2>Achievements</h2>
-        <AddButton clickFunc={addAch} />
         <ul>{achieveItems}</ul>
+        <AddButton clickFunc={addAch} />
       </section>
 
       <section className="skills">
         <InfoSection contentInfo={Monkey.skills} display={SkillDisplay} />
       </section>
-    </>
+    </div>
   );
 }

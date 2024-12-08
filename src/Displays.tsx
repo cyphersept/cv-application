@@ -7,8 +7,10 @@ export function BasicDisplay(props: {
 }) {
   return (
     <>
-      <EditButton clickFunc={props.clickToEdit} />
-      <h1>{props.content.name.value}</h1>
+      <div className="section-head">
+        <EditButton clickFunc={props.clickToEdit} />
+        <h1>{props.content.name.value}</h1>
+      </div>
       <h2>{props.content.title.value}</h2>
       <div className="contact">
         <div className="phone">{props.content.phone.value}</div>
@@ -29,7 +31,7 @@ export function EduDisplay(props: {
   clickToEdit: () => void;
 }) {
   return (
-    <li>
+    <li className="li-section">
       <EditButton clickFunc={props.clickToEdit} />
       <div className="school">{props.content.school.value}</div>
       <div className="degree">{props.content.degree.value}</div>
@@ -48,7 +50,7 @@ export function WorkDisplay(props: {
   const about = props.content.about.values;
   const aboutList = about ? about.map((item) => <li>{item}</li>) : <></>;
   return (
-    <li>
+    <li className="li-section">
       <EditButton clickFunc={props.clickToEdit} />
       <div className="company">{props.content.company.value}</div>
       <div className="title">{props.content.title.value}</div>
@@ -66,7 +68,7 @@ export function AchieveDisplay(props: {
   clickToEdit: () => void;
 }) {
   return (
-    <li>
+    <li className="li-section">
       <EditButton clickFunc={props.clickToEdit} />
       <div className="title">{props.content.title.value}</div>
       <div className="date">{props.content.date.value}</div>
@@ -84,8 +86,10 @@ export function SkillDisplay(props: {
     : [];
   return (
     <>
-      <EditButton clickFunc={props.clickToEdit} />
-      <h2>Skills</h2>
+      <div className="section-head">
+        <EditButton clickFunc={props.clickToEdit} />
+        <h2>Skills</h2>
+      </div>
       <ul>{skillsList}</ul>
     </>
   );

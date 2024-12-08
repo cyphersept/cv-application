@@ -3,10 +3,85 @@
     Arial, sans-serif;
 }
 
-Resume {
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resume {
   border: 2px solid royalblue;
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
+  background-color: antiquewhite;
+  color: #111;
+  width: 53.125rem;
+}
+
+section {
+  position: relative;
+
+  > ul > li + li {
+    margin-top: 0.5rem;
+  }
+}
+
+.li-section {
+  line-height: 1em;
+}
+
+.li-section button.edit,
+.section-head button {
+  position: absolute;
+  left: -1rem;
+  transform: translateX(-100%);
+}
+
+button.add {
+  width: 100%;
+}
+
+.about li {
+  list-style: circle;
+}
+
+.duration {
+  display: flex;
+  justify-content: center;
+
+  .start::after {
+    content: "-";
+    margin: 0 0.5em;
+  }
+}
+
+.education {
+  .li-section {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .degree {
+    font-weight: 800;
+  }
+}
+
+.work {
+  .li-section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .company::after {
+    content: "|";
+    margin: 0 0.5em;
+  }
+  .duration {
+    margin-left: auto;
+  }
 }
