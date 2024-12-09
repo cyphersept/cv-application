@@ -10,6 +10,7 @@ export const Factories = {
         label: "Summary",
         value: summary,
         type: "textarea",
+        classes: "textarea",
       },
     };
   },
@@ -43,20 +44,20 @@ export const Factories = {
         value: portfolio,
       },
       linkedinDisplay: {
-        id: "linkedin",
-        label: "Linkedin Display Text",
+        id: "linkedinDisplay",
+        label: "Linkedin Link Text",
         type: "text",
         value: linkedinDisplay,
       },
       githubDisplay: {
-        id: "github",
-        label: "Github Display Text",
+        id: "githubDisplay",
+        label: "Github Link Text",
         type: "text",
         value: githubDisplay,
       },
       portfolioDisplay: {
-        id: "portfolio",
-        label: "Portfolio Display Text",
+        id: "portfolioDisplay",
+        label: "Portfolio Link Text",
         type: "text",
         value: portfolioDisplay,
       },
@@ -99,7 +100,7 @@ export const Factories = {
   achieve: function (title = "", date = "", desc = ""): InfoObject {
     return {
       title: { id: "title", label: "Title", value: title },
-      date: { id: "date", label: "Achievement date", value: date },
+      date: { id: "date", label: "Date", value: date },
       description: { id: "description", label: "Description", value: desc },
     };
   },

@@ -48,34 +48,36 @@ export function Form(props: {
 }
 
 // Normal single form input element
-function FormField({
-  value = "", // default field value
-  label = "My Field", // text label for field
-  classes = "", // classes to apply to input element
-  type = "text", //input type
-  id = "",
+function FormField(props: {
+  value?: string; // default value
+  label?: string; // label text
+  classes?: string; // classes for label
+  type?: string; // input type
+  id?: string; // input name parameter
 }) {
   return (
-    <label className={classes}>
-      {label}:
-      <input type={type} defaultValue={value} name={id} />
+    <label className={props.classes}>
+      {props.label}:
+      <input type={props.type} defaultValue={props.value} name={props.id} />
     </label>
   );
 }
 
-function RepeatableField({
-  defaultVal = "", // default field value
-  values = [""],
-  label = "My Field", // text label for field
-  classes = "", // classes to apply to input element
-  type = "text", //input type
-  id = "",
+// Repeated fieldset with multiple inputs for one type of value
+function RepeatableField(props: {
+  defaultVal?: string; // default value
+  values?: string[]; // list of all values
+  label?: string; // label text
+  classes?: string; // classes for label
+  type?: string; // input type
+  id?: string; // input name parameter
 }) {
-  const [fields, setFields] = useState(values);
+  // Generate separate input field element for each value
+  const [fields, setFields] = useState(props.values ?? []);
   const fieldsDisplay = fields.map((_, index: number) => (
     <li className="repeat-field" key={index}>
       <label title="Add work details" aria-label="Work detail">
-        <input type={type} defaultValue={fields[index]} name={id} />
+        <input type={props.type} defaultValue={fields[index]} name={props.id} />
         <RemoveButton
           clickFunc={() => {
             const newEntries = fields;
@@ -87,10 +89,12 @@ function RepeatableField({
   ));
 
   return (
-    <fieldset className={classes}>
-      <legend>{label}</legend>
+    <fieldset className={props.classes}>
+      <legend>{props.label}</legend>
       {fieldsDisplay}
-      <AddButton clickFunc={() => setFields(fields.concat([defaultVal]))} />
+      <AddButton
+        clickFunc={() => setFields(fields.concat([props.defaultVal ?? ""]))}
+      />
     </fieldset>
   );
 }
