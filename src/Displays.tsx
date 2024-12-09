@@ -1,28 +1,93 @@
 import type { InfoObject } from "./Interfaces";
 import { EditButton } from "./CustomButtons";
+import {
+  FaLinkedin,
+  FaSquareGithub,
+  FaLink,
+  FaPhone,
+  FaEnvelope,
+  FaHouse,
+} from "react-icons/fa6";
+import { ReactNode } from "react";
 
 export function BasicDisplay(props: {
   content: InfoObject;
   clickToEdit: () => void;
 }) {
+  const c = props.content;
   return (
     <>
       <div className="section-head">
         <EditButton clickFunc={props.clickToEdit} />
-        <h1>{props.content.name.value}</h1>
+        <h1>{c.name.value}</h1>
       </div>
-      <h2>{props.content.title.value}</h2>
-      <div className="contact">
-        <div className="phone">{props.content.phone.value}</div>
-        <div className="email">{props.content.email.value}</div>
-        <div className="location">{props.content.location.value}</div>
-      </div>
-      <div className="sites">
-        <div className="linkedin">{props.content.linkedin.value}</div>
-        <div className="github">{props.content.github.value}</div>
-        <div className="portfolio">{props.content.portfolio.value}</div>
-      </div>
+      <h2>{c.title.value}</h2>
+      <p>{c.summary.value}</p>
     </>
+  );
+}
+
+export function ContactDisplay(props: {
+  content: InfoObject;
+  clickToEdit: () => void;
+}) {
+  const c = props.content;
+  const p = "tel:+" + c.phone.value;
+  const e = "mailto:" + c.email.value;
+  const eSplit = c.email.value?.split("@") ?? ["", ""];
+  const eDisplay = (
+    <>
+      {eSplit[0]}
+      <wbr />
+      {"@" + eSplit[1]}
+    </>
+  );
+  return (
+    <>
+      <div className="section-head">
+        <EditButton clickFunc={props.clickToEdit} />
+        <h2>Contact</h2>
+      </div>
+      <ul>
+        <LiA icon={<FaPhone />} name="phone" val={p} display={c.phone.value} />
+        <LiA icon={<FaEnvelope />} name="email" val={e} display={eDisplay} />
+        <LiA icon={<FaHouse />} name="location" val={c.location.value} />
+        <LiA
+          icon={<FaLinkedin />}
+          name="linkedin"
+          val={c.linkedin.value}
+          display={c.linkedinDisplay.value}
+        />
+        <LiA
+          icon={<FaSquareGithub />}
+          name="github"
+          val={c.github.value}
+          display={c.githubDisplay.value}
+        />
+        <LiA
+          icon={<FaLink />}
+          name="portfolio"
+          val={c.portfolio.value}
+          display={c.portfolioDisplay.value}
+        />
+      </ul>
+    </>
+  );
+}
+
+function LiA(props: {
+  icon: ReactNode;
+  name: string;
+  val?: string;
+  display?: string | JSX.Element;
+}) {
+  return (
+    <li className={props.name} hidden={props.val ? false : true}>
+      <a href={props.val}>
+        {props.icon}
+        {props.display ?? props.val}
+      </a>
+    </li>
   );
 }
 

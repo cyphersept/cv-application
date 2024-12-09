@@ -21,6 +21,13 @@ export function Form(props: {
           id={obj.id}
         />
       );
+    else if (obj.type === "textarea")
+      return (
+        <label className={obj.classes}>
+          {obj.label}:
+          <textarea name={obj.id} defaultValue={obj.value} />
+        </label>
+      );
     else
       return (
         <FormField
@@ -64,28 +71,26 @@ function RepeatableField({
   type = "text", //input type
   id = "",
 }) {
-  const [fieldEntries, setFieldEntries] = useState(values);
-  const fields = fieldEntries.map((_, index: number) => (
+  const [fields, setFields] = useState(values);
+  const fieldsDisplay = fields.map((_, index: number) => (
     <li className="repeat-field" key={index}>
       <label title="Add work details" aria-label="Work detail">
-        <input type={type} defaultValue={fieldEntries[index]} name={id} />
+        <input type={type} defaultValue={fields[index]} name={id} />
+        <RemoveButton
+          clickFunc={() => {
+            const newEntries = fields;
+            setFields(newEntries.splice(index, 1));
+          }}
+        />
       </label>
-      <RemoveButton
-        clickFunc={() => {
-          const newEntries = fieldEntries;
-          setFieldEntries(newEntries.splice(index, 1));
-        }}
-      />
     </li>
   ));
 
   return (
     <fieldset className={classes}>
       <legend>{label}</legend>
-      <AddButton
-        clickFunc={() => setFieldEntries(fieldEntries.concat([defaultVal]))}
-      />
-      {fields}
+      {fieldsDisplay}
+      <AddButton clickFunc={() => setFields(fields.concat([defaultVal]))} />
     </fieldset>
   );
 }

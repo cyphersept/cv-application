@@ -3,6 +3,7 @@ import type { InfoObject } from "./Interfaces";
 import { InfoSection } from "./InfoSection";
 import {
   BasicDisplay,
+  ContactDisplay,
   EduDisplay,
   WorkDisplay,
   AchieveDisplay,
@@ -38,31 +39,38 @@ export function Resume() {
 
   return (
     <div className="resume">
-      <section className="basic">
-        <InfoSection contentInfo={Monkey.basic} display={BasicDisplay} />
-      </section>
+      <div className="left column">
+        <section className="contact">
+          <InfoSection contentInfo={Monkey.contact} display={ContactDisplay} />
+        </section>
 
-      <section className="education">
-        <h2>Education</h2>
-        <ul>{eduItems}</ul>
-        <AddButton clickFunc={addEdu} />
-      </section>
+        <section className="education">
+          <h2>Education</h2>
+          <ul>{eduItems}</ul>
+          <AddButton clickFunc={addEdu} />
+        </section>
 
-      <section className="work">
-        <h2>Work History</h2>
-        <ul>{workItems}</ul>
-        <AddButton clickFunc={addWork} />
-      </section>
+        <section className="skills">
+          <InfoSection contentInfo={Monkey.skills} display={SkillDisplay} />
+        </section>
+      </div>
 
-      <section className="achievements">
-        <h2>Achievements</h2>
-        <ul>{achieveItems}</ul>
-        <AddButton clickFunc={addAch} />
-      </section>
+      <div className="right column">
+        <section className="basic">
+          <InfoSection contentInfo={Monkey.basic} display={BasicDisplay} />
+        </section>
+        <section className="work">
+          <h2>Work History</h2>
+          <ul>{workItems}</ul>
+          <AddButton clickFunc={addWork} />
+        </section>
 
-      <section className="skills">
-        <InfoSection contentInfo={Monkey.skills} display={SkillDisplay} />
-      </section>
+        <section className="achievements">
+          <h2>Achievements</h2>
+          <ul>{achieveItems}</ul>
+          <AddButton clickFunc={addAch} />
+        </section>
+      </div>
     </div>
   );
 }

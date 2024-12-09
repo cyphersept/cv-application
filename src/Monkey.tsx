@@ -1,18 +1,20 @@
 import { Factories as Create } from "./Factories";
 
 export const Monkey = {
-  basic: Create.basic(
-    "Sun Wukong",
-    "Great Sage Equal to Heaven",
+  basic: Create.basic("Sun Wukong", "Great Sage Equal to Heaven", ""),
+  contact: Create.contact(
     "108-0999-8181",
-    "GreatSage@FFMountain.net",
+    "GreatSage@FFMtn.net",
     "Flower Fruit Mountain",
-    "",
-    "",
-    "https://en.wikipedia.org/wiki/Monkey_King"
+    "https://en.wikipedia.org/wiki/Wu_Cheng%27en",
+    "https://github.com/bookmachine/journey-to-the-west",
+    "https://en.wikipedia.org/wiki/Monkey_King",
+    "LinkedIn",
+    "Github",
+    "Portfolio"
   ),
   edu: [
-    Create.edu("Five Phases Mountain", "Dharma Initiate", "110 CE", "120 CE"),
+    Create.edu("Five Phases Mountain", "Dharma Initiate", "127 CE", "627 CE"),
     Create.edu(
       "Mountain of Heart and Mind",
       "Immortal Sage",

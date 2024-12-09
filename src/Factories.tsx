@@ -1,24 +1,34 @@
 import type { InfoObject } from "./Interfaces";
 
 export const Factories = {
-  basic: function (
-    name = "",
-    title = "",
+  basic: function (name = "", title = "", summary = ""): InfoObject {
+    return {
+      name: { id: "name", label: "Name", value: name },
+      title: { id: "title", label: "Title", value: title },
+      summary: {
+        id: "summary",
+        label: "Summary",
+        value: summary,
+        type: "textarea",
+      },
+    };
+  },
+
+  contact: function (
     phone = "",
     email = "",
     location = "",
     linkedin = "",
     github = "",
-    portfolio = ""
+    portfolio = "",
+    linkedinDisplay = "",
+    githubDisplay = "",
+    portfolioDisplay = ""
   ): InfoObject {
     return {
-      f1: { type: "header", label: "Basic info:" },
-      name: { id: "name", label: "Name", value: name },
-      title: { id: "title", label: "Title", value: title },
-      phone: { id: "phone", label: "Phone Number", value: phone },
+      phone: { id: "phone", label: "Phone", type: "phone", value: phone },
       email: { id: "email", label: "Email", type: "email", value: email },
       location: { id: "location", label: "Location", value: location },
-      f2: { type: "header", label: "Your socials:" },
       linkedin: {
         id: "linkedin",
         label: "Linkedin",
@@ -31,6 +41,24 @@ export const Factories = {
         label: "Portfolio",
         type: "url",
         value: portfolio,
+      },
+      linkedinDisplay: {
+        id: "linkedin",
+        label: "Linkedin Display Text",
+        type: "text",
+        value: linkedinDisplay,
+      },
+      githubDisplay: {
+        id: "github",
+        label: "Github Display Text",
+        type: "text",
+        value: githubDisplay,
+      },
+      portfolioDisplay: {
+        id: "portfolio",
+        label: "Portfolio Display Text",
+        type: "text",
+        value: portfolioDisplay,
       },
     };
   },

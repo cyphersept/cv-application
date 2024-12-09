@@ -1,4 +1,8 @@
-import { RiAddCircleFill, RiIndeterminateCircleFill, RiEdit } from "./Icons";
+import {
+  RiAddCircleFill,
+  RiIndeterminateCircleFill,
+  RiEdit2Fill,
+} from "react-icons/ri";
 
 export function RemoveButton({ clickFunc }: { clickFunc: () => void }) {
   return (
@@ -19,7 +23,7 @@ export function AddButton({ clickFunc }: { clickFunc: () => void }) {
 export function EditButton({ clickFunc }: { clickFunc: () => void }) {
   return (
     <button type="button" className="edit" onClick={clickFunc}>
-      <RiEdit />
+      <RiEdit2Fill />
     </button>
   );
 }
